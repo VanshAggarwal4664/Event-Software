@@ -1,0 +1,11 @@
+.menu-item{
+    color:black;
+    cursor: pointer;
+    background-color: white;
+    padding: 0px;
+    margin: 0px;
+}
+.active{
+    color:skyblue;
+    cursor: pointer;
+}

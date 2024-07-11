@@ -1,0 +1,17 @@
+.list-item{
+    color:#a9a9a9;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: left;
+    text-align: left;
+    font-size: 16px;
+    background-color: white;
+}
+.list-active{
+    color:black;
+    padding: 5px;
+    background-color: #f6f6f6;
+    border-radius: 8px;
+}
