@@ -24,6 +24,8 @@ import EventApproval from './pages/EventApproval/EventApproval.jsx';
 import RecievedCertificate from './pages/RecievedCertificate/RecievedCertificate.jsx';
 
 const App = () => {
+
+  // fetching the current user 
   const dispatch=useDispatch()
   useEffect(() => {
     dispatch(fetchCurrentUser());

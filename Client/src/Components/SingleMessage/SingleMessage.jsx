@@ -5,20 +5,23 @@ import { useSelector } from 'react-redux';
 import ScrollableFeed from 'react-scrollable-feed'
 
 const SingleMessage = ({ messages }) => {
+  // also importing scrollable feed to show up all the chats in a given container
   const user = useSelector((state) => state.user);
   const messagesEndRef = useRef(null);
-
+// automatically move to latest message with a smooth transition
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // call scrollTobottom when this component mount
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
+  // rendering the attaachment according to their file type
  const renderAttachment=(attachment)=>{
-  console.log(attachment,"ma call hua hu")
   const downloadIcon = (
     <Link >
     <a href="path_to_file" download={`custom.${attachment?.format}`} >

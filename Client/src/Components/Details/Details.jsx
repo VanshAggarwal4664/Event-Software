@@ -3,11 +3,12 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 
 
-const Details = () => {
+const Details = ({handleJoin}) => {
     const location=useLocation();
     const data= location.state
     // setEventData(data)
-    
+
+    // displaying the event details 
     return (
         <Box width="100%" height="max-content" display="flex" justifyContent="center" >
             <Box display="flex" backgroundColor="#bee1e6" width="70%" flexDirection="column" padding="20px">
@@ -30,7 +31,7 @@ const Details = () => {
                             <Text  textAlign="left" fontSize="18px" fontWeight="Bold">Long Description: <span style={{ fontWeight: "400" }}>{data.longDescription}</span> </Text>
                             <Text textAlign="left" fontSize="18px" fontWeight="Bold">Limit: <span style={{ fontWeight: "400" }}>{data.limit}</span> </Text>
                         </Box>
-                        <Button>Join Now</Button>
+                        <Button onClick={() => { handleJoin(data?.eventChatGroup, data?._id) }} backgroundColor="black" color="white">Join Now</Button>
                     </Box>
                     <Box flex="0.8" padding="40px" display="flex" justifyContent="center" alignItems="center">
                        <Image src={data?.eventImage}  width="100%" height="70%" objectFit="cover" border="2px unset black" borderRadius="12px"/>

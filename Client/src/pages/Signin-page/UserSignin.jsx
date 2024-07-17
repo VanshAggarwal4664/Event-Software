@@ -9,6 +9,8 @@ const UserSignin = () => {
   const navigate= useNavigate()
   const dispatch= useDispatch()
   const [userData,setUserData]= useState()
+
+  // handle the signin of the user if it is successful it show an alert and navigate to all events page
     const handleSignin=async(data)=>{
      try {
        const response = await axios.post("http://localhost:3000/api/v1/user/login",data,{
@@ -20,7 +22,7 @@ const UserSignin = () => {
         alert(response?.data?.message)
         setUserData(response?.data?.data?.user)
         dispatch(setUser(response?.data?.data?.user))
-       if(response?.data?.success) navigate('/')
+       navigate('/all-events')
      } catch (error) {
       console.log(error)
      }

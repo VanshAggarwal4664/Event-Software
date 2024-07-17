@@ -14,6 +14,7 @@ const RegisterEvent = () => {
     const[loader,setLoader]=useState(false)
     const user= useSelector((state)=> {return state.user})
 
+    // if user is empty it means user is not login then show will be false
     useEffect(() => {
         if(user.username==="" && user.email===""){
             setShow(false)
@@ -21,6 +22,7 @@ const RegisterEvent = () => {
           }
     }, [user])
 
+    // if show is false it means user is not login then we have tp redirect user to login
     useEffect(() => {
         if (!show) {
             alert('Please Login');
@@ -28,7 +30,7 @@ const RegisterEvent = () => {
         }
     }, [show, navigate]);
     
-   
+   // sending the event data and hit the api to create a new event
     const handleClick=async(data)=>{
         setLoader(true)
         try {

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 const HeroBanner = () => {
   const navigate= useNavigate()
+  // displaying hero banner with details on left and image on right
   return (
     <>
     <Box display="flex" justifyContent="center">

@@ -6,7 +6,7 @@ const EventHistory = () => {
   const [filterData,setFilterData]=useState([]);
     const url="http://localhost:3000/api/v1/event/history-events"
 
-
+// fetching all the events which is passed
     useEffect(() => {
       const fetchEvents= async()=>{
         try {

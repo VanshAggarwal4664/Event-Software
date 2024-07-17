@@ -5,11 +5,13 @@ import axios from 'axios'
 import ChatBox from '../../Components/ChatBox/ChatBox'
 
 const Chat = () => {
+  // maintaining two data one is original and filter to perform filter function and for comeback to original state by using originalData state
   const [originalData,setOriginalData]= useState([]);
   const [filterData,setFilterData]=useState([]);
   const [fetchChatagain,setFetchChatAgain]=useState(false)
  
 
+// this useeffect fetching all the chats related to that user
   useEffect(() => {
    const fetchChat= async()=>{
        try {

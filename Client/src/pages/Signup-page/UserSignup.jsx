@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 const UserSignup = () => {
     const navigate= useNavigate()
+    // simply handling the userSignup
 
     const handleSignup=async(data)=>{
         const DataToSend={...data}

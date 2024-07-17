@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom'
 
 const EventCard = ({ data, handleJoin }) => {
   const navigate = useNavigate()
+  // redirect user to event details page with event data
   const handleDetail = () => {
     navigate(`/event-details/${data._id}`, { state: data })
   }
+  // return the values for how many days event is running
   const dayCalculator = (startDate, endDate) => {
     const start = new Date(startDate)
     const end = new Date(endDate)

@@ -2,9 +2,12 @@ import { Box, Button, Heading, ListItem, UnorderedList } from '@chakra-ui/react'
 import React from 'react'
 import { NavLink,  useNavigate } from 'react-router-dom'
 import './Header.css'
+import { useSelector } from 'react-redux'
 
 
 const Header = () => {
+  // getting user info from redux store
+  const user= useSelector((state)=>state.user);
   const navigate= useNavigate();
   return (
     <Box display="flex" justifyContent="space-between" padding="30px">
@@ -22,13 +25,13 @@ const Header = () => {
                 <ListItem padding="0px 10px">
                 <NavLink className={({isActive})=>{return `menu-item ${isActive?"active":""}`}}  to="/Blogs">Blogs</NavLink>
                 </ListItem>
-                <ListItem padding="0px 10px">
+               {/* dashboard is only visible when user is logged in */}
+                {user.username != ""?<ListItem padding="0px 10px">
                 <NavLink className={({isActive})=>{return `menu-item ${isActive?"active":""}`}}   to="/dashboard">Dashboard</NavLink>
-                </ListItem>
+                </ListItem>:""}
 
             </UnorderedList>
             <Box display="flex" gap="20px">
-              <Button onClick={()=> navigate("/user/signup")}>Signup</Button>
               <Button onClick={()=> navigate("/user/login")} variant="outline">Login</Button>
             </Box>
         </Box>

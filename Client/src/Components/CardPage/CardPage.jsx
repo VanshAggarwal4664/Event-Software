@@ -4,6 +4,7 @@ import EventCard from '../EventCard/EventCard'
 import Paginate from '../Paginate/Paginate'
 
 const CardPage = ({data,handleJoin}) => {
+  // count how many cards should be visible on screen
   const cardsPerPage= 8
 
   const [itemOffset, setItemOffset] = useState(0); // Initial offset is set to 0

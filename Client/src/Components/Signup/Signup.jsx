@@ -3,17 +3,14 @@ import "../Signin/Signin.css"
 import { Box, Button,Heading, Image, Input } from '@chakra-ui/react'
 import pic from '../../../public/login.svg'
 const Signup = ({handleSignup,heading}) => {
-// const handleSignup= async(e)=>{
-//     e.preventDefault()
-//     window.location.href = 'http://localhost:3000/api/auth/google/signup'
-// }
+// handle the user data
 const [data, setData]=useState({
   username:"",
   mobileNumber:"",
   email:"",
   password:""
 })
-
+// handle the change and update the data
 const handleChange=(e)=>{
    setData({...data, [e.target.name]: e.target.value})
 }

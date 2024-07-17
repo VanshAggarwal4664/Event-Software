@@ -4,10 +4,10 @@ import axios from "axios";
 const getUserFromSessionStorage = () => {
     try {
       const user = sessionStorage.getItem('user');
-      return user ? JSON.parse(user) : { username: "", email: "", role: "",_id:"" };
+      return user ? JSON.parse(user) : { username: "", email: "", role: "",_id:"",recievedCertificates:[] };
     } catch (error) {
       console.error("Failed to parse user from sessionStorage:", error);
-      return { username: "", email: "", role: "",_id: "" };
+      return { username: "", email: "", role: "",_id: "",recievedCertificates:[] };
     }
   };
 const initialState=getUserFromSessionStorage()
@@ -18,18 +18,20 @@ const userSlice= createSlice({
     reducers:{
         setUser: (state,action)=>{
           console.log(action.payload)
-         const {email,role,username,_id}=action.payload
+         const {email,role,username,_id,recievedCertificates}=action.payload
                state.username=username
                state.email=email
                state.role=role
                state._id= _id
+               state.recievedCertificates=recievedCertificates
                sessionStorage.setItem('user', JSON.stringify(state))
         },
        clearUser : (state,action) => {
             state.username = '';
             state.email = '';
             state.role = '';
-            state._id= ''
+            state._id= '';
+            state.recievedCertificates=[];
             sessionStorage.removeItem('user');
           }
     }

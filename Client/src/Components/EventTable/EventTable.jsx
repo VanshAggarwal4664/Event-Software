@@ -28,10 +28,12 @@ const EventTable = ({ data }) => {
     const user = useSelector((state) => state.user);
     const [show, setShow] = useState(false)
     const navigate = useNavigate();
+    // normalizing the date to compare
     const normalizeDate = () => {
         const date = new Date()
         return new Date(date.getFullYear(), date.getMonth(), date.getDate());
     };
+    // deciding the status of the event
     const status = (start, end) => {
         const currentDate = normalizeDate()
         if (start > currentDate) {
@@ -43,7 +45,7 @@ const EventTable = ({ data }) => {
         }
     }
 
-
+// this function is for the super admin functionality to approve the event
     const handleApproved = async (id) => {
         try {
             const response = await axios.get(`http://localhost:3000/api/v1/event/approved/${id}`, { withCredentials: true })
@@ -54,6 +56,8 @@ const EventTable = ({ data }) => {
         }
 
     }
+
+    // this functio is for super admin functionality to reject the event
     const handleRejected = async (id) => {
         try {
             const response = await axios.get(`http://localhost:3000/api/v1/event/rejected/${id}`, { withCredentials: true })
@@ -78,6 +82,7 @@ const EventTable = ({ data }) => {
                             <Th >End-Date</Th>
                             <Th isNumeric>Limit</Th>
                             <Th>Event-Status</Th>
+                            {/* approval status show if it is super admin or host of that event */}
                             {user?.role=="SuperAdmin" || user?._id == data[0]?.createdBy ? <Th>Approval-Status</Th> : ""}
                             <Th>Actions</Th>
                         </Tr>

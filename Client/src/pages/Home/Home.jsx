@@ -4,6 +4,7 @@ import HeroBanner from '../../Components/HeroBanner/HeroBanner.jsx'
 
 
 const Home = () => {
+  // rendering simple component
   return (
     <>
         <Header/>

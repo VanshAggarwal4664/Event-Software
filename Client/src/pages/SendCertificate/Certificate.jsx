@@ -6,6 +6,8 @@ const Certificate = () => {
   const url="http://localhost:3000/api/v1/event/created-events"
   const [data,setData]= useState([]);
 
+
+   // fetching that events which is created by loggeed in user and setData with events value and map through the data and render certificate card
   useEffect(() => {
     const fetchEvents= async()=>{
       try {
@@ -31,7 +33,7 @@ const Certificate = () => {
           <Box key={single?._id}>
           <CertificateCard
             event={single}
-            download={true}
+            download={false}
           />
           </Box>
           

@@ -4,9 +4,12 @@ import axios from 'axios'
 import EventBox from '../../Components/EventBox/EventBox';
 
 const UpcomingEvents = () => {
+  // maintaining two data one is original and filter to perform filter function and for comeback to original state by using originalData state
   const [originalData,setOriginalData]= useState([]);
   const [filterData,setFilterData]=useState([]);
     const url= "http://localhost:3000/api/v1/event/upcoming-events"
+
+ // fetching that events which are upcominmg and joined by the logged in user
     useEffect(() => {
       const fetchEvents= async()=>{
         try {

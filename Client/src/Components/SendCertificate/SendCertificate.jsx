@@ -16,22 +16,38 @@ import axios, { formToJSON } from 'axios';
 import UserList from '../UserList/UserList';
 
 const SendCertificate = ({setSendModal,id}) => {
+  // this array store the object in which two keys one is user id and selected with value true or false
     const usersMap= new Array();
- 
-    const sendCertificateToUsers= async()=>{
-
-        
-        console.log("ma run g=ho raha hu")
-        try {
-             const response= await axios.post(`http://localhost:3000/api/v1/certificate/send-certificate/${id}`,usersMap,{withCredentials:true})
-        } catch (error) {
-             console.log(error)
-        }
-    }
     const [usersData,setUsersData]=useState([]);
     const [loader,setLoader]=useState(false)
     const toast=useToast();
+ 
 
+    // send certificate to users ,after successful sending the certificate it show toast and close the modal
+    const sendCertificateToUsers= async()=>{
+      setLoader(true)
+        try {
+             const response= await axios.post(`http://localhost:3000/api/v1/certificate/send-certificate/${id}`,usersMap,{withCredentials:true})
+             setLoader(false);
+             toast({
+              title: 'Send Certificate',
+              description: "Certificate Send Successfully to selected Users",
+              status: 'success',
+              duration: 5000,
+              isClosable: true,
+            })
+            setSendModal((prev)=>!prev)
+        } catch (error) {
+             setLoader(false);
+             alert("something went wrong")
+             setSendModal((prev)=>!prev)
+             console.log(error)
+        }
+    }
+    
+  
+
+// this use effect calling api which give all the joined uswe for that particular eventn and userList component used here
     useEffect(() => {
 
         const fetchJoinedUsers=async()=>{
@@ -41,6 +57,7 @@ const SendCertificate = ({setSendModal,id}) => {
               } catch (error) {
                 console.log(error)
               }
+             
         }
         fetchJoinedUsers();
      
@@ -73,7 +90,7 @@ const SendCertificate = ({setSendModal,id}) => {
           Close
         </Button>
         <Button variant='outline' onClick={sendCertificateToUsers}
-        >Send Certificate</Button>
+        > {loader?<Spinner/>:"Send Certificate"}</Button>
       </ModalFooter>
     </ModalContent>
   </Modal>

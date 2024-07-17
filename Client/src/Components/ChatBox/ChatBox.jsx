@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardFooter, CardHeader, Divider, Input, Text } from '@chakra-ui/react'
+import { Avatar, Box, Button, Card, CardFooter, CardHeader, Divider, Input, Spinner, Text, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -8,7 +8,8 @@ import ChatDrawer from '../ChatDrawer/ChatDrawer'
 import File from '../FileComponent/File'
 
 
-const ChatBox = ({ setFetchChatAgain }) => {
+const ChatBox = ({ setFetchChatAgain}) => {
+  const toast= useToast();
   const socket = useRef();
   const selectedChatCompare = useRef();
   const selectedChat = useSelector((state) => { return state.chat })
@@ -18,6 +19,7 @@ const ChatBox = ({ setFetchChatAgain }) => {
   const [socketConnected, setSocketConnected] = useState(false)
   const [openDrawer, setOpenDrawer] = useState(false)
   const [singleChatName, setSingleChatName] = useState("")
+  const [loader,setLoader]= useState(false)
 
   useEffect(() => {
     // Establish socket connection when component mounts
@@ -40,17 +42,17 @@ const ChatBox = ({ setFetchChatAgain }) => {
   }, [selectedChat])
 
   useEffect(() => {
+    // sending message and update the message array
     socket.current.on("message-recieved", (newMessage) => {
       if (!(selectedChatCompare.current) || selectedChatCompare.current._id != newMessage?.chat?._id) {
-        console.log("yaha aa raha hu ma notification dena h")
+        console.log("notification")
       } else {
-        console.log("yaha aa raha hu ma2")
         setMessages([...messages, newMessage])
       }
     })
   })
 
-
+// fetching all the message for that particular chat
   const fetchAllMessages = async () => {
     if ((selectedChat._id == null)) {
       return
@@ -65,7 +67,7 @@ const ChatBox = ({ setFetchChatAgain }) => {
   }
 
 
-
+// simple message handler
   const handleSend = async () => {
     try {
       const response = await axios.post("http://localhost:3000/api/v1/message/send", {
@@ -74,6 +76,7 @@ const ChatBox = ({ setFetchChatAgain }) => {
       }, {
         withCredentials: true
       })
+      
       socket.current.emit("new-message", response?.data?.data)
       setMessages([...messages, response?.data?.data])
       setInputMessage("")
@@ -84,11 +87,10 @@ const ChatBox = ({ setFetchChatAgain }) => {
 
 
   }
- 
+ // handle to send files
   const handleSendFile=async(data)=>{
-    console.log(data)
+    setLoader(true)
     data.append("chatid",selectedChat._id)
-    console.log(data)
     try {
       const response = await axios.post("http://localhost:3000/api/v1/message/sendfile",data, {
         headers:{
@@ -96,13 +98,30 @@ const ChatBox = ({ setFetchChatAgain }) => {
         },
         withCredentials: true
       })
+      setLoader(false)
+      toast({
+        title: 'File Send',
+        description: "File Send Successfully",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
       socket.current.emit("new-message", response?.data?.data)
       setMessages([...messages, response?.data?.data])
 
     } catch (error) {
+      setLoader(false)
+      toast({
+        title: 'Fil Send Unsuccessful',
+        description: "Something went wrong",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
       console.log(error)
     }
   }
+  // handle the user who want to do one o one chat with the admin or host of the event
   const handleAdminChat = async (id) => {
     try {
       const response = await axios.get(`http://localhost:3000/api/v1/chat/singleChat/${id}`, { withCredentials: true })
@@ -115,7 +134,7 @@ const ChatBox = ({ setFetchChatAgain }) => {
       console.log(error)
     }
   }
-
+//this function is to find name because we have to show username on the messages 
   const calculateName = () => {
     selectedChat.users.map((user) => {
     console.log(user._id)
@@ -172,11 +191,15 @@ const ChatBox = ({ setFetchChatAgain }) => {
               <File handleSendFile={handleSendFile}/>
               <Input type='text' width="70%" placeholder='write your message'
                 onChange={(e) => setInputMessage(e.target.value)} value={inputMessage}></Input>
-              <Button width="20%" onClick={handleSend}>send</Button>
+              <Button width="20%" onClick={handleSend}>
+                   {loader? <Spinner/> :"send"}
+              </Button>
             </Box>
           </Box>
         ) : (
-          <p>kisi ko nahi kiya</p>
+        <Box  height="100%" display="flex" justifyContent="center" alignItems="center">
+           <Text fontSize="30px" fontWeight="600">Please Select the Chat to Talk</Text>
+        </Box>
         )
       }
     </Box>

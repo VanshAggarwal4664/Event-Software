@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import "../Signin/Signin.css"
-import { Box, Button,Heading, Image, Input } from '@chakra-ui/react'
+import { Box, Button,Heading, Image, Input, Text } from '@chakra-ui/react'
 import pic from '../../../public/login.svg'
 const Signin = ({handleSignin,heading}) => {
-
+// handkling the login data of the user
 const [data, setData]=useState({
   email:"",
   password:""
 })
-
+// handling the  change in data and update the data
 const handleChange=(e)=>{
    setData({...data, [e.target.name]: e.target.value})
 }
@@ -29,6 +29,7 @@ const handleChange=(e)=>{
                 <label style={{margin:"5px 0px"}} >Password
                 <Input onChange={handleChange}  backgroundColor="white" type="password" name="password" value={data.password} placeholder='Enter your password'/>
                 </label>
+                <Text>Dont have an account? <a href='/user/signup' style={{cursor:'pointer'}}>Signup Now</a></Text>            
                 <Button onClick={()=>{
                    handleSignin(data)
                 }}  type="submit">Signin</Button>

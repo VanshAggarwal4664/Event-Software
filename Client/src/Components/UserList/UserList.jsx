@@ -22,6 +22,7 @@ import {
 } from '@chakra-ui/react'
 
 const UserList = ({ user ,usersMap,index}) => {
+    // this component simply display the user list and used in send certificate modal in which i have to select user whom i want to send  certificate
     return (
         <>
             <Box display="flex" p="2" >

@@ -17,20 +17,20 @@ const File = ({handleSendFile}) => {
     const selectAudio = () => AudioRef?.current.click();
     const selectVideo = () => VideoRef?.current.click();
 
-
+// handling the selected files and making of array of files  and opening the modal
     const fileHandler = (e, key) => {
-        console.log(e.target.files)
         const selectedfiles = Array.from(e.target.files)
-        console.log(selectedfiles);
-
+       // if no files selected it simply return 
         if (selectedfiles.length < 0) return
 
+        // if selected files is more than 4 it show a alert
         if (selectedfiles.length > 4) {
             alert(`you can only send 4 ${key} at a time`)
         }
         setFiles(selectedfiles)
-        console.log("yaha hu ma",!openModal);
-        setOpenModal(true)
+        setOpenModal((prev)=>{
+            console.log(prev)
+           return !prev})
     }
 
     return (
@@ -42,7 +42,7 @@ const File = ({handleSendFile}) => {
             handleSendFile={handleSendFile}
          />
          :
-         "no files selected"}
+         ""}
             <Menu>
                 <MenuButton
                     as={IconButton}

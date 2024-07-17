@@ -10,14 +10,14 @@ const SingleChat = ({data}) => {
   const userData= useSelector((state)=>{return state.user})
   const dispatch= useDispatch()
 
-
+// if it is not a group chat we have to give chat name a name so that would be opposite person name
    useEffect(() => {
      if(!data.isGroupChat){
       console.log("run hua")
       calculateName();
      }
    }, [])
-
+// set the name for the chat
    const calculateName = () => {
     data?.users?.map((user) => {
       if (user._id != userData._id) {

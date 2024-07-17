@@ -7,7 +7,7 @@ import SingleChat from '../SingleChat/SingleChat'
 const ChatPanel = ({ originalData,setFilterData,filterData}) => {
   const [searchData, setSearchData] = useState("");
   const [searchActive, setSearchActive] = useState(true)
- 
+ // simple search function to search between the data
   const handleSearch=()=>{
     if (searchActive) {
       setSearchActive(false)
@@ -33,6 +33,8 @@ const ChatPanel = ({ originalData,setFilterData,filterData}) => {
   }
   }
 
+
+  // displaying all the chats in which logged in user is joined
 
   return (
     <Box width="100%" height="100%" padding="20px" display="flex" flexDirection="column" gap="10px"  borderRadius="12px">

@@ -60,16 +60,19 @@ const userSchema = new mongoose.Schema({
   ]
 })
 
+// this function bycrypt the password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10)
   next();
 })
 
+// this method checking the password is correct or not which we used in user login controller
 userSchema.methods.isPasswordCorrect = async function (password) {
   return bcrypt.compare(password, this.password)
 }
 
+// this method genrating a accessToken by taking payload
 userSchema.methods.genrateAccessToken = function () {
   return jwt.sign(
     { _id: this._id, email: this.email, username: this.username, role: this.role },
@@ -77,6 +80,7 @@ userSchema.methods.genrateAccessToken = function () {
     { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
   )
 }
+// this method genrating a RefreshToken by taking payload
 userSchema.methods.genrateRefreshToken = function () {
   return jwt.sign(
     { _id: this._id },

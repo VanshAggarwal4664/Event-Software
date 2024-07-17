@@ -13,14 +13,12 @@ import {
   } from '@chakra-ui/react'
 import { CloseIcon } from '@chakra-ui/icons'
 const FileModal = ({openModal,setOpenModal,selectedfiles,handleSendFile}) => {
+  // storing the data of sending file and message
  const [data,setData]=useState({
     content:"",
     files: selectedfiles
  })
 
-const closeModal=()=>{
- setOpenModal(!openModal)
-}
 
   return (
     <Modal isOpen={openModal} >
@@ -28,7 +26,7 @@ const closeModal=()=>{
         <ModalContent>
           <ModalHeader display="flex" justifyContent="space-between">
           <Text>Selected Files</Text>
-          <IconButton onClick={closeModal}  boxSize="15px 15px" icon={<CloseIcon  boxSize="10px"/>} />
+          <IconButton onClick={()=>setOpenModal(!openModal)}  boxSize="15px 15px" icon={<CloseIcon  boxSize="10px"/>} />
           </ModalHeader>
         
           <ModalBody>

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactPaginate from 'react-paginate'
 import { Box } from '@chakra-ui/react'
 const Paginate = ({ pageCount, handlePageChange }) => {
-
+// simple paginate component
     return (
         <Box>
             <ReactPaginate

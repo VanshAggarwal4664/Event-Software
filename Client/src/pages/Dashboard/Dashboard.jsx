@@ -1,19 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import Panel from '../../Components/DashboardPanel/Panel'
 import { Box } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
-
+import fetchCurrentUser from '../../ReduxFeatures/User/UserSlice.js'
 
 const Dashboard = () => {
+  // fetching user to check if it is login or not then it will show dashboard or unauthorized request
    const user= useSelector((state)=> state.user);
-
+ 
   return (
     user._id!="" ?<Box width="100%" display="flex">
-    <Box width="20%">
+    <Box width="23%" height={"max-content"}>
     <Panel/>
     </Box>
-    <Box width="80%">
+    <Box width="87%"  height={"max-content"}>
     <Outlet/>
     </Box>
   </Box>:"UnAuthorized Request"

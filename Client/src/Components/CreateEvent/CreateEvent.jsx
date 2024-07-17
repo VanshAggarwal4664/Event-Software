@@ -16,17 +16,23 @@ const CreateEvent = ({ handleClick,loader }) => {
     limit: 0
   });
 
+  // updating certified value  according to event change
   const handleChange = (e) => {
     if (e.target.name === "certified") {
       setData({ ...data, certified: !(data.certified) })
     }
+    
+  // updating eventType value  according to event change
     else if (e.target.name === "eventType") {
       setData({ ...data, eventType: e.target.value })
     }
+    
+  // updating Event Image value  according to event change
     else if (e.target.name === "eventImage") {
       console.log(e.target.files[0])
       setData({ ...data, eventImage: e.target.files[0] })
     }
+    // updating remaining value
     else {
       setData({ ...data, [e.target.name]: e.target.value })
     }

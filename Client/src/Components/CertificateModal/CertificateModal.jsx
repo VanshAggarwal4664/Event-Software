@@ -21,6 +21,7 @@ const CertificateModal = ({setCreateModal,id}) => {
         companyLogo:null,
         event:id
     })
+    // handle the creation of certificate 
     const handleCreation=()=>{
       setLoader(true)
         try {

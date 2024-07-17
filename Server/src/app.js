@@ -52,23 +52,24 @@ app.use('/api/v1/message',messageRouter)
 // certificate routes
 app.use('/api/v1/certificate',certificateRouter)
 
-
+// connecting socket
 io.on("connection",(socket)=>{
     console.log("a new user connected",socket.id)
 
+    // joined the user to there room with their own id
    socket.on("setup",(userData)=>{
       socket.join(userData._id)
       console.log(userData._id)
       socket.emit("connected")
    })
 
-
+   // joining the user to a particular room
    socket.on("join room",(roomID)=>{
        socket.join(roomID)
        console.log("user joined room",roomID)
    })
 
-
+  // sending a new message to a users
    socket.on("new-message",(newMessage)=>{
     const chat= newMessage?.chat
     if(!chat.users) return console.log("users not found")
@@ -80,10 +81,6 @@ io.on("connection",(socket)=>{
        
    })
 })
-
-
-
-
 
 
 
